@@ -4,6 +4,8 @@ In the repository you will find the code that compiles into the executable bdd.o
 
 I would have liked to upload the library here aswell in order to compile immeadetly after cloning the repository but this was not possible as some files were too large for github.
 
+The code right now completes a propositional formula from the Feldman paper. Right now it is hard coded however i have a plan for the program to read the formulas and translate them automatically.
+
 # Compiling
 
 In order to compile the code, move the cudd-3.0.0 library into the main folder. Afterwards run the following command (where the name of the file to be compiled is bdd.c):
@@ -22,7 +24,7 @@ In order to vizualize the graph, with graphviz installed run:
 
 ```
 
-dot -Tps bdd/graph.dot bdd/graph.ps
+dot -Tps bdd/graph.dot -o bdd/graph.ps
 ```
 
 This will return in the same folder the graph in ps format (in order to maintain the quality of the graph). We can change the type of file outputed as desired.

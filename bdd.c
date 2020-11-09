@@ -53,7 +53,22 @@ int main (int argc, char *argv[])
     DdManager *gbm;	/* Global BDD manager. */
     char filename[30]; 
     gbm = Cudd_Init(0,0,CUDD_UNIQUE_SLOTS,CUDD_CACHE_SLOTS,0); /* Initialize a new BDD manager. */
-    DdNode *bdd = Cudd_bddNewVar(gbm); /*Creat a new BDD variable*/
+    DdNode *xa = Cudd_bddNewVar(gbm); /*Creat new BDD variables*/
+    DdNode *xb = Cudd_bddNewVar(gbm);
+    DdNode *xc = Cudd_bddNewVar(gbm);
+
+    DdNode *firstAnd = Cudd_bddAnd(gbm, Cudd_Not(xa), Cudd_Not(xb));
+    firstAnd = Cudd_bddAnd(gbm, firstAnd, Cudd_Not(xc));
+
+    DdNode *secondAnd = Cudd_bddAnd(gbm, Cudd_Not(xa), Cudd_Not(xb));
+    secondAnd = Cudd_bddAnd(gbm, secondAnd, xc);
+
+    DdNode *thirdAnd = Cudd_bddAnd(gbm, Cudd_Not(xa), xb);
+    thirdAnd = Cudd_bddAnd(gbm, thirdAnd, Cudd_Not(xc));
+
+    DdNode *bdd = Cudd_bddOr(gbm, firstAnd, secondAnd);
+    bdd = Cudd_bddOr(gbm, bdd, thirdAnd);
+    
     Cudd_Ref(bdd); /*Increases the reference count of a node*/
     bdd = Cudd_BddToAdd(gbm, bdd); /*Convert BDD to ADD for display purpose*/
     print_dd (gbm, bdd, 2,4);	/*Print the dd to standard output*/
