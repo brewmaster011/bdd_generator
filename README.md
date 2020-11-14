@@ -1,30 +1,28 @@
 # Summary of Repository
 
-In the repository you will find the code that compiles into the executable bdd.out, the executable itself and the folder bdd where you will find the graphs created by the executable.
-
-I would have liked to upload the library here aswell in order to compile immeadetly after cloning the repository but this was not possible as some files were too large for github.
+In the repository you will find the code in bdd.c and the folder bdd where you will find the graphs created by the program.
 
 The code right now completes a propositional formula from the Feldman paper. Right now it is hard coded however i have a plan for the program to read the formulas and translate them automatically.
 
-# Compiling
+## Compiling
 
-In order to compile the code, move the cudd-3.0.0 library into the main folder. Afterwards run the following command (where the name of the file to be compiled is bdd.c):
+In order to compile the bdd.c file you will first need to install CUDD version 3.0.0 in this directory. This can be done by running `make get-dependencies`
 
-```
+After downloading and installing you can run `make` in this folder and this will compile the executable bdd.out. **Make sure there is a directory called `bdd` in this folder or the program will not work**.
 
-gcc -I cudd-3.0.0/util -I cudd-3.0.0/cudd -I cudd-3.0.0 -I cudd-3.0.0/st -I cudd-3.0.0/mtr -I cudd-3.0.0/epd bdd.c cudd-3.0.0/cudd/.libs/libcudd.a -lm -o bdd.out
-```
+You can then run the program with `./bdd.out`
 
-This will create an executable called bdd in the main folder which can be run by simply typing ./bdd
-
-# Opening the File
+## Opening the graph
 
 After running the bdd executable we will gave a graph.dot file inside the bdd folder.
 In order to vizualize the graph, with graphviz installed run:
 
-```
-
+```bash
 dot -Tps bdd/graph.dot -o bdd/graph.ps
 ```
 
-This will return in the same folder the graph in ps format (in order to maintain the quality of the graph). We can change the type of file outputed as desired.
+This will return in the same folder the graph in ps format (in order to maintain the quality of the graph). We can change the type of file outputed as desired. For example to convert to a jpeg:
+
+```bash
+dot -Tjpg bdd/graph.dot -o bdd/graph.jpg
+```
