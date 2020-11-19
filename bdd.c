@@ -12,6 +12,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include "cudd.h"
+#include "tree.h"
 
 /**
  * Print a dd summmary
@@ -60,14 +61,18 @@ int main (int argc, char *argv[])
     DdNode *firstAnd = Cudd_bddAnd(gbm, Cudd_Not(xa), Cudd_Not(xb));
     firstAnd = Cudd_bddAnd(gbm, firstAnd, Cudd_Not(xc));
 
-    DdNode *secondAnd = Cudd_bddAnd(gbm, Cudd_Not(xa), Cudd_Not(xb));
+    DdNode *secondAnd = Cudd_bddAnd(gbm, Cudd_Not(xa), xb);
     secondAnd = Cudd_bddAnd(gbm, secondAnd, xc);
 
-    DdNode *thirdAnd = Cudd_bddAnd(gbm, Cudd_Not(xa), xb);
-    thirdAnd = Cudd_bddAnd(gbm, thirdAnd, Cudd_Not(xc));
+    DdNode *thirdAnd = Cudd_bddAnd(gbm, Cudd_Not(xa), Cudd_Not(xb));
+    thirdAnd = Cudd_bddAnd(gbm, thirdAnd, xc);
+
+    DdNode *fourthAnd = Cudd_bddAnd(gbm, xa, xb);
+    fourthAnd = Cudd_bddAnd(gbm, fourthAnd, Cudd_Not(xc));
 
     DdNode *bdd = Cudd_bddOr(gbm, firstAnd, secondAnd);
     bdd = Cudd_bddOr(gbm, bdd, thirdAnd);
+    bdd = Cudd_bddOr(gbm, bdd, fourthAnd);
     
     Cudd_Ref(bdd); /*Increases the reference count of a node*/
     bdd = Cudd_BddToAdd(gbm, bdd); /*Convert BDD to ADD for display purpose*/
