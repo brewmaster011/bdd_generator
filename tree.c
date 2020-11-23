@@ -1,10 +1,14 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
+
 #include "tree.h"
 
-tree newNode(char data){
+tree newTreeNode(char data){
 
-    tree node = (tree)malloc(sizeof(tree));
+    tree node = malloc(sizeof(tree));
+    assert(node != NULL);
+
     node->data = data;
 
     node->left = NULL;

@@ -11,6 +11,7 @@
 #include <time.h>
 #include <math.h>
 #include <stdlib.h>
+
 #include "cudd.h"
 #include "tree.h"
 
@@ -80,5 +81,12 @@ int main (int argc, char *argv[])
     sprintf(filename, "./bdd/graph.dot"); /*Write .dot filename to a string*/
     write_dd(gbm, bdd, filename);  /*Write the resulting cascade dd to a file*/
     Cudd_Quit(gbm);
+
+    tree t = newTreeNode('a');
+    t->left = newTreeNode('b');
+    t->right = newTreeNode('c');
+
+    freeTree(t);
+
     return 0;
 }

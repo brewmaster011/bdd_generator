@@ -1,5 +1,8 @@
-bdd: bdd.c
-	gcc -I cudd-3.0.0/util -I cudd-3.0.0/cudd -I cudd-3.0.0 -I cudd-3.0.0/st -I cudd-3.0.0/mtr -I cudd-3.0.0/epd bdd.c tree.c cudd-3.0.0/cudd/.libs/libcudd.a -lm -o bdd.out
+CC = gcc
+CFLAGS = -g -std=c99 -pedantic -Wall
+
+bdd: bdd.c tree.c
+	$(CC) $(CFLAGS) -I cudd-3.0.0/util -I cudd-3.0.0/cudd -I cudd-3.0.0 -I cudd-3.0.0/st -I cudd-3.0.0/mtr -I cudd-3.0.0/epd $^ cudd-3.0.0/cudd/.libs/libcudd.a -lm -o bdd.out
 
 get-dependencies:
 	wget https://www.davidkebo.com/source/cudd_versions/cudd-3.0.0.tar.gz
