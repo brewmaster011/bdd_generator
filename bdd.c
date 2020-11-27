@@ -1,9 +1,3 @@
-/*
-* FILENAME: tutorial.c
-* Overview: BDD tutorial
-* AUTHOR: David Kebo Houngninou
-*/
-
 #include <sys/types.h>
 #include <sys/time.h>
 #include <stdio.h>
@@ -16,15 +10,6 @@
 #include "structs/tree.h"
 #include "structs/list.h"
 
-/**
- * Print a dd summmary
- * pr = 0 : prints nothing
- * pr = 1 : prints counts of nodes and minterms
- * pr = 2 : prints counts + disjoint sum of product
- * pr = 3 : prints counts + list of nodes
- * pr > 3 : prints counts + disjoint sum of product + list of nodes
- * @param the dd node
- */
 void print_dd (DdManager *gbm, DdNode	*dd, int n, int pr )
 {
     printf("DdManager nodes: %ld | ", Cudd_ReadNodeCount(gbm)); /*Reports the number of live nodes in BDDs and ADDs*/
@@ -34,11 +19,6 @@ void print_dd (DdManager *gbm, DdNode	*dd, int n, int pr )
     Cudd_PrintDebug(gbm, dd, n, pr);	// Prints to the standard output a DD and its statistics: number of nodes, number of leaves, number of minterms.
 }
 
-
-/**
- * Writes a dot file representing the argument DDs
- * @param the node object
- */
 void write_dd (DdManager *gbm, DdNode	*dd, char* filename)
 {
     FILE *outfile; // output file pointer for .dot file
