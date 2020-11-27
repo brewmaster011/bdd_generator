@@ -1,0 +1,11 @@
+(a`b`c`) or (a`b`c) or (a`bc`)
+a`b`c` or a`b`c or abc`
+a`b`c` or a`bc or ab`c
+a`b`c` or a`b`c or a`bc` or a`bc
+a`b`c` or a`b`c or abc` or abc
+a`b`c` or a`b`c or a`bc` or ab`c
+a`b`c` or a`b`c or a`bc` or ab`c`
+a`b`c` or a`b`c or a`bc` or abc
+a`b`c` or a`bc or ab`c or abc`
+
+~(((~(((~a) & (~b)) & (~c))) & (~(((~a) & b) & (~c)))) & (~(((~a) & (~b)) & c)))
