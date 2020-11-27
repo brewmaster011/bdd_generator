@@ -15,5 +15,11 @@ show:
 	dot -Tps bdd/graph.dot -o bdd/graph.ps
 	evince bdd/graph.ps
 
+test:
+	./bdd.out
+
+leak-test:
+	valgrind ./bdd.out
+
 clean:
 	rm bdd.out
