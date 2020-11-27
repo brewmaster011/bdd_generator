@@ -13,7 +13,8 @@
 #include <stdlib.h>
 
 #include "cudd.h"
-#include "tree.h"
+#include "structures/tree.h"
+#include "structures/list.h"
 
 /**
  * Print a dd summmary
@@ -55,25 +56,16 @@ int main (int argc, char *argv[])
     DdManager *gbm;	/* Global BDD manager. */
     char filename[30]; 
     gbm = Cudd_Init(0,0,CUDD_UNIQUE_SLOTS,CUDD_CACHE_SLOTS,0); /* Initialize a new BDD manager. */
-    DdNode *xa = Cudd_bddNewVar(gbm); /*Creat new BDD variables*/
-    DdNode *xb = Cudd_bddNewVar(gbm);
-    DdNode *xc = Cudd_bddNewVar(gbm);
+    DdNode *a, *b, *c;
+    a = Cudd_bddNewVar(gbm);
+    b = Cudd_bddNewVar(gbm);
+    c = Cudd_bddNewVar(gbm);
 
-    DdNode *firstAnd = Cudd_bddAnd(gbm, Cudd_Not(xa), Cudd_Not(xb));
-    firstAnd = Cudd_bddAnd(gbm, firstAnd, Cudd_Not(xc));
+    DdNode *bdd;
+    bdd = Cudd_bddXor(gbm, a, b);
 
-    DdNode *secondAnd = Cudd_bddAnd(gbm, Cudd_Not(xa), xb);
-    secondAnd = Cudd_bddAnd(gbm, secondAnd, xc);
-
-    DdNode *thirdAnd = Cudd_bddAnd(gbm, Cudd_Not(xa), Cudd_Not(xb));
-    thirdAnd = Cudd_bddAnd(gbm, thirdAnd, xc);
-
-    DdNode *fourthAnd = Cudd_bddAnd(gbm, xa, xb);
-    fourthAnd = Cudd_bddAnd(gbm, fourthAnd, Cudd_Not(xc));
-
-    DdNode *bdd = Cudd_bddOr(gbm, firstAnd, secondAnd);
-    bdd = Cudd_bddOr(gbm, bdd, thirdAnd);
-    bdd = Cudd_bddOr(gbm, bdd, fourthAnd);
+    c = Cudd_Not(c);
+    bdd = Cudd_bddNand(gbm, bdd, c);
     
     Cudd_Ref(bdd); /*Increases the reference count of a node*/
     bdd = Cudd_BddToAdd(gbm, bdd); /*Convert BDD to ADD for display purpose*/
@@ -82,11 +74,20 @@ int main (int argc, char *argv[])
     write_dd(gbm, bdd, filename);  /*Write the resulting cascade dd to a file*/
     Cudd_Quit(gbm);
 
-    tree t = newTreeNode('a');
-    t->left = newTreeNode('b');
-    t->right = newTreeNode('c');
+    // TREE POC
+    // tree t = newTreeNode('a');
+    // t->left = newTreeNode('b');
+    // t->right = newTreeNode('c');
 
-    freeTree(t);
+    // freeTree(t);
+
+    // List POC
+    // list l = newListNode('a');
+    // l->next = newListNode('b');
+    // l->next->next = newListNode('c');
+
+    // printList(l);
+    // freeList(l);
 
     return 0;
 }

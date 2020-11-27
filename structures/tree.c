@@ -18,9 +18,8 @@ tree newTreeNode(char data){
 
 void freeTree(tree t){
 
-    if(t == NULL){
-        return;
-    }
+    if(t == NULL) return;
+    
     freeTree(t->left);
     freeTree(t->right);
     free(t);
