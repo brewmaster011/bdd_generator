@@ -1,17 +1,17 @@
 #ifndef TREE_H
 #define TREE_H
 
-typedef struct Node *tree;
+typedef struct TreeNode *Tree;
 
-typedef struct Node{
+typedef struct TreeNode{
 
     char data;
-    tree left;
-    tree right;
+    Tree left;
+    Tree right;
 
-} Node;
+} TreeNode;
 
-tree newTreeNode(char data);
-void freeTree(tree t);
+Tree newTreeNode(char data);
+void freeTree(Tree t);
 
 #endif

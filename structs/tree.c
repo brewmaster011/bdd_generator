@@ -4,9 +4,9 @@
 
 #include "tree.h"
 
-tree newTreeNode(char data){
+Tree newTreeNode(char data){
 
-    tree node = malloc(sizeof(tree));
+    Tree node = malloc(sizeof(Tree));
     assert(node != NULL);
 
     node->data = data;
@@ -16,7 +16,7 @@ tree newTreeNode(char data){
     return node;
 }
 
-void freeTree(tree t){
+void freeTree(Tree t){
 
     if(t == NULL) return;
     

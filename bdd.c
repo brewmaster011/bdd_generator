@@ -58,14 +58,14 @@ int main (int argc, char *argv[])
     // Putting the lines in lists
     // And printing the lists before freeing them
 
-    FILE* filePointer;
+    FILE *filePointer;
     int bufferLength = 255;
     char buffer[bufferLength];
 
     filePointer = fopen("formulas.txt", "r");
 
     while(fgets(buffer, bufferLength, filePointer)) {
-        list head = readIntoList(buffer);
+        List head = readIntoList(buffer);
         printList(head);
         printf("\n");
         freeList(head);

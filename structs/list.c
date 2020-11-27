@@ -5,9 +5,9 @@
 
 #include "list.h"
 
-list newListNode(char data){
+List newListNode(char data){
 
-    list node = malloc(sizeof(list));
+    List node = malloc(sizeof(List));
     assert(node != NULL);
 
     node->data = data;
@@ -16,7 +16,23 @@ list newListNode(char data){
     return node;
 }
 
-void freeList(list l){
+List readIntoList(char *array){
+
+    List head = newListNode(array[0]);
+    List next = newListNode(array[1]);
+    List after = NULL;
+    head->next = next;
+
+    for(int i = 2; i < strlen(array); i++){
+
+        after = newListNode(array[i]);
+        next->next = after;
+        next = after;
+    }
+    return head;
+}
+
+void freeList(List l){
 
     if(l == NULL) return;
 
@@ -24,25 +40,10 @@ void freeList(list l){
     free(l);
 }
 
-void printList(list l){
+void printList(List l){
     
     while(l != NULL){
         printf("%c", l->data);
         l = l->next;
     }
-}
-
-list readIntoList(char *array){
-
-    list head = newListNode(array[0]);
-    list next = newListNode(array[1]);
-    list after = NULL;
-    head->next = next;
-
-    for(int i = 2; i < strlen(array); i++){
-        after = newListNode(array[i]);
-        next->next = after;
-        next = after;
-    }
-    return head;
 }

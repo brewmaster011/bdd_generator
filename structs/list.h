@@ -1,19 +1,19 @@
 #ifndef LIST_H
 #define LIST_H
 
-typedef struct List *list;
+typedef struct ListNode *List;
 
-typedef struct List{
+typedef struct ListNode{
     
     char data;
-    list next;
+    List next;
 
-} List;
+} ListNode;
 
-list newListNode(char data);
-list readIntoList(char *array);
+List newListNode(char data);
+List readIntoList(char *array);
 
-void freeList(list l);
-void printList(list l);
+void freeList(List l);
+void printList(List l);
 
 #endif
