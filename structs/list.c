@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
+#include <string.h>
 
 #include "list.h"
 
@@ -26,7 +27,22 @@ void freeList(list l){
 void printList(list l){
     
     while(l != NULL){
-        printf("%c ", l->data);
+        printf("%c", l->data);
         l = l->next;
     }
+}
+
+list readIntoList(char *array){
+
+    list head = newListNode(array[0]);
+    list next = newListNode(array[1]);
+    list after = NULL;
+    head->next = next;
+
+    for(int i = 2; i < strlen(array); i++){
+        after = newListNode(array[i]);
+        next->next = after;
+        next = after;
+    }
+    return head;
 }

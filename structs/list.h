@@ -11,8 +11,9 @@ typedef struct List{
 } List;
 
 list newListNode(char data);
-void freeList(list l);
+list readIntoList(char *array);
 
+void freeList(list l);
 void printList(list l);
 
 #endif

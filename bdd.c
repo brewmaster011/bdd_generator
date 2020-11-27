@@ -13,8 +13,8 @@
 #include <stdlib.h>
 
 #include "cudd.h"
-#include "structures/tree.h"
-#include "structures/list.h"
+#include "structs/tree.h"
+#include "structs/list.h"
 
 /**
  * Print a dd summmary
@@ -74,20 +74,24 @@ int main (int argc, char *argv[])
     write_dd(gbm, bdd, filename);  /*Write the resulting cascade dd to a file*/
     Cudd_Quit(gbm);
 
-    // TREE POC
-    // tree t = newTreeNode('a');
-    // t->left = newTreeNode('b');
-    // t->right = newTreeNode('c');
+    // Opening 'formulas.txt'
+    // Putting the lines in lists
+    // And printing the lists before freeing them
 
-    // freeTree(t);
+    FILE* filePointer;
+    int bufferLength = 255;
+    char buffer[bufferLength];
 
-    // List POC
-    // list l = newListNode('a');
-    // l->next = newListNode('b');
-    // l->next->next = newListNode('c');
+    filePointer = fopen("formulas.txt", "r");
 
-    // printList(l);
-    // freeList(l);
+    while(fgets(buffer, bufferLength, filePointer)) {
+        list head = readIntoList(buffer);
+        printList(head);
+        printf("\n");
+        freeList(head);
+    }
+
+    fclose(filePointer);
 
     return 0;
 }
