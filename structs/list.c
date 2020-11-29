@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h>
 #include <assert.h>
 #include <string.h>
 
@@ -24,6 +25,8 @@ List readIntoList(char *array){
     head->next = next;
 
     for(int i = 2; i < strlen(array); i++){
+
+        while(isspace(array[i]) && i < strlen(array)) i++;
 
         after = newListNode(array[i]);
         next->next = after;

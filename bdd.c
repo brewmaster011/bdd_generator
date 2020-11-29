@@ -58,6 +58,8 @@ int main (int argc, char *argv[])
     // Putting the lines in lists
     // And printing the lists before freeing them
 
+    Tree tree = NULL;
+
     FILE *filePointer;
     int bufferLength = 255;
     char buffer[bufferLength];
@@ -65,13 +67,22 @@ int main (int argc, char *argv[])
     filePointer = fopen("formulas.txt", "r");
 
     while(fgets(buffer, bufferLength, filePointer)) {
-        List head = readIntoList(buffer);
-        printList(head);
-        printf("\n");
+        List head = readIntoList(buffer); 
+        listToTree(head, &tree);
+        // printTree(tree);
+        // printf("\n");
+        // printList(head);
+        // printf("\n");
         freeList(head);
+        // freeTree(tree);
     }
 
     fclose(filePointer);
 
+    printTree(tree);
+    printf("\n");
+
+
+    freeTree(tree);
     return 0;
 }
