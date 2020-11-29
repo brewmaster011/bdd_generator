@@ -22,7 +22,7 @@ void listToTree(List l, Tree *t){
     while(l != NULL){
 
         Tree left = NULL;
-        Tree right = NULL;
+        // Tree right = NULL;
 
         switch (l->data){
         case '~':
@@ -39,8 +39,8 @@ void listToTree(List l, Tree *t){
             *t = newTreeNode('&');
             (*t)->left = left;
 
-            right = newTreeNode(l->next->data);
-            (*t)->right = right;
+            (*t)->right = newTreeNode(l->next->data);
+            // (*t)->right = right;
 
             break;
         
@@ -55,7 +55,7 @@ void listToTree(List l, Tree *t){
             case '&':
             
                 if((*t)->left == NULL) (*t)->left = newTreeNode(l->data);
-                else (*t)->right = newTreeNode(l->data);
+                // else (*t)->right = newTreeNode(l->data);
 
             default:
                 break;
@@ -69,11 +69,12 @@ void listToTree(List l, Tree *t){
 void printTree(Tree t){
 
     if(t == NULL) return;
+    else printf("%c ", t->data);
 
     printTree(t->left);
     printTree(t->right);
 
-    printf("%c ", t->data);
+    // printf("%c ", t->data);
 }
 
 void freeTree(Tree t){
