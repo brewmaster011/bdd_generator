@@ -4,6 +4,8 @@ In the repository you will find the code in bdd.c and the folder bdd where you w
 
 The code right now completes a propositional formula from the Feldman paper. Right now it is hard coded however i have a plan for the program to read the formulas and translate them automatically.
 
+The program can now put the formulas into trees. Only works with formulas which have exclusively the symbols `~` and `&`.
+
 ## Compiling
 
 In order to compile the bdd.c file you will first need to install CUDD version 3.0.0 in this directory. This can be done by running `make get-dependencies`
