@@ -1,1 +1,3 @@
-~a & c & d & b & c & d
+~a & ~ b & ~c & ~ d
+~a & b & ~c & d
+a & b & c & ~d

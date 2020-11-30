@@ -58,8 +58,6 @@ int main (int argc, char *argv[])
     // Putting the lines in lists
     // And printing the lists before freeing them
 
-    Tree tree = NULL;
-
     FILE *filePointer;
     int bufferLength = 255;
     char buffer[bufferLength];
@@ -68,21 +66,16 @@ int main (int argc, char *argv[])
 
     while(fgets(buffer, bufferLength, filePointer)) {
         List head = readIntoList(buffer); 
+        Tree tree = newTreeNode('\0');
         listToTree(head, &tree);
-        // printTree(tree);
-        // printf("\n");
-        // printList(head);
-        // printf("\n");
+        printTree(tree);
+        printf("\n");
+        printList(head);
+        printf("\n");
         freeList(head);
-        // freeTree(tree);
+        freeTree(tree);
     }
 
     fclose(filePointer);
-
-    printTree(tree);
-    printf("\n");
-
-
-    freeTree(tree);
     return 0;
 }
