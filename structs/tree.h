@@ -13,8 +13,8 @@ typedef struct TreeNode{
 
 } TreeNode;
 
-Tree newTreeNode(char data);
-void listToTree(List l, Tree *t);
+Tree newTreeNode(char data, Tree left, Tree right);
+int createTree(Tree *t, List *l);
 
 void freeTree(Tree t);
 void printTree(Tree t);

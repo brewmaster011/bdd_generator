@@ -49,9 +49,9 @@ int main (int argc, char *argv[])
     
     Cudd_Ref(bdd); /*Increases the reference count of a node*/
     bdd = Cudd_BddToAdd(gbm, bdd); /*Convert BDD to ADD for display purpose*/
-    print_dd (gbm, bdd, 2,4);	/*Print the dd to standard output*/
+    // print_dd (gbm, bdd, 2,4);	/*Print the dd to standard output*/
     sprintf(filename, "./bdd/graph.dot"); /*Write .dot filename to a string*/
-    write_dd(gbm, bdd, filename);  /*Write the resulting cascade dd to a file*/
+    // write_dd(gbm, bdd, filename);  /*Write the resulting cascade dd to a file*/
     Cudd_Quit(gbm);
 
     // Opening 'formulas.txt'
@@ -65,12 +65,13 @@ int main (int argc, char *argv[])
     filePointer = fopen("formulas.txt", "r");
 
     while(fgets(buffer, bufferLength, filePointer)) {
-        List head = readIntoList(buffer); 
-        Tree tree = newTreeNode('\0');
-        listToTree(head, &tree);
-        printTree(tree);
-        printf("\n");
+        Tree tree = NULL;
+        List head = readIntoList(buffer);
         printList(head);
+        printf("\n");
+        int i = createTree(&tree, &head);
+        printf("%d\n", i);
+        printTree(tree);
         printf("\n");
         freeList(head);
         freeTree(tree);
