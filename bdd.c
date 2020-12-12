@@ -30,33 +30,56 @@ void write_dd (DdManager *gbm, DdNode	*dd, char* filename)
     fclose (outfile); // close the file */
 }
 
-// This program creates a single BDD variable
+DdNode * create_bdd(DdManager *gbm, Tree *t){
+
+    if(!*t) return NULL;
+
+    if((*t)->left == NULL && (*t)->right == NULL){
+        return Cudd_bddNewVar(gbm);
+    }
+
+    DdNode *left = create_bdd(gbm, &((*t)->left));
+    DdNode *right = create_bdd(gbm, &((*t)->right));
+
+    switch((*t)->data){
+    case '&':
+        return Cudd_bddAnd(gbm, left, right);
+        break;
+    
+    case '|':
+        return Cudd_bddOr(gbm, left, right);
+        break;
+
+    case '~':
+        return Cudd_Not(left);
+        break;
+    
+    default:
+        printf("This should not happen\n");
+        break;
+    }
+    return NULL;
+}
+
 int main (int argc, char *argv[])
 {
     DdManager *gbm;	/* Global BDD manager. */
     char filename[30]; 
     gbm = Cudd_Init(0,0,CUDD_UNIQUE_SLOTS,CUDD_CACHE_SLOTS,0); /* Initialize a new BDD manager. */
-    DdNode *a, *b, *c;
-    a = Cudd_bddNewVar(gbm);
-    b = Cudd_bddNewVar(gbm);
-    c = Cudd_bddNewVar(gbm);
-
-    DdNode *bdd;
-    bdd = Cudd_bddXor(gbm, a, b);
-
-    c = Cudd_Not(c);
-    bdd = Cudd_bddNand(gbm, bdd, c);
     
-    // print_dd (gbm, bdd, 2,4);	/*Print the dd to standard output*/
-    Cudd_Ref(bdd); /*Increases the reference count of a node*/
-    bdd = Cudd_BddToAdd(gbm, bdd); /*Convert BDD to ADD for display purpose*/
-    sprintf(filename, "./bdd/graph.dot"); /*Write .dot filename to a string*/
-    Cudd_Quit(gbm);
-    // write_dd(gbm, bdd, filename);  /*Write the resulting cascade dd to a file*/
+    // DdNode *a, *b, *c, *bdd;
+    // a = Cudd_bddNewVar(gbm);
+    // b = Cudd_bddNewVar(gbm);
+    // c = Cudd_bddNewVar(gbm);
+
 
     // Opening 'formulas.txt'
     // Putting the lines in lists
     // And printing the lists before freeing them
+
+    Tree tree = NULL;
+    List head;
+    int i = 0;
 
     FILE *filePointer;
     int bufferLength = 255;
@@ -65,18 +88,30 @@ int main (int argc, char *argv[])
     filePointer = fopen("formulas.txt", "r");
 
     while(fgets(buffer, bufferLength, filePointer)) {
-        Tree tree = NULL;
-        List head = readIntoList(buffer);
+        
+        head = readIntoList(buffer);
         printList(head);
         printf("\n");
-        int i = createTree(&tree, &head);
-        printf("%d\n", i);
+        i = createTree(&tree, &head);
+
+        DdNode *bdd = create_bdd(gbm, &tree);
+        
+        Cudd_Ref(bdd);
+        bdd = Cudd_BddToAdd(gbm, bdd);
+        sprintf(filename, "./bdd/graph.dot");
+        print_dd (gbm, bdd, 2,4);	/*Print the dd to standard output*/
+        write_dd(gbm, bdd, filename);  /*Write the resulting cascade dd to a file*/
         printTree(tree);
         printf("\n");
-        freeList(head);
-        freeTree(tree);
+        printf("\n");
+
     }
 
+    freeList(head);
+    freeTree(tree);
+
+    Cudd_Quit(gbm);
     fclose(filePointer);
+    i++;
     return 0;
 }
