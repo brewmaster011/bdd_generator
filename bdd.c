@@ -66,12 +66,6 @@ int main (int argc, char *argv[])
     DdManager *gbm;	/* Global BDD manager. */
     char filename[30]; 
     gbm = Cudd_Init(0,0,CUDD_UNIQUE_SLOTS,CUDD_CACHE_SLOTS,0); /* Initialize a new BDD manager. */
-    
-    // DdNode *a, *b, *c, *bdd;
-    // a = Cudd_bddNewVar(gbm);
-    // b = Cudd_bddNewVar(gbm);
-    // c = Cudd_bddNewVar(gbm);
-
 
     // Opening 'formulas.txt'
     // Putting the lines in lists
@@ -80,38 +74,46 @@ int main (int argc, char *argv[])
     Tree tree = NULL;
     List head;
     int i = 0;
+    int name = 0;
 
-    FILE *filePointer;
-    int bufferLength = 255;
+    FILE *fptr;
+    int bufferLength = 225;
     char buffer[bufferLength];
 
-    filePointer = fopen("formulas.txt", "r");
+    fptr = fopen("formulas.txt", "r");
 
-    while(fgets(buffer, bufferLength, filePointer)) {
+    while(fgets(buffer, bufferLength, fptr)) {
         
         head = readIntoList(buffer);
         printList(head);
         printf("\n");
         i = createTree(&tree, &head);
 
-        DdNode *bdd = create_bdd(gbm, &tree);
-        
-        Cudd_Ref(bdd);
-        bdd = Cudd_BddToAdd(gbm, bdd);
-        sprintf(filename, "./bdd/graph.dot");
-        print_dd (gbm, bdd, 2,4);	/*Print the dd to standard output*/
-        write_dd(gbm, bdd, filename);  /*Write the resulting cascade dd to a file*/
-        printTree(tree);
-        printf("\n");
-        printf("\n");
+        if(i){
+            DdNode *bdd = create_bdd(gbm, &tree);
+            Cudd_Ref(bdd);
+            bdd = Cudd_BddToAdd(gbm, bdd);
+            if(name == 0) sprintf(filename, "./bdd/graph.dot");
+            else sprintf(filename, "./bdd/graph_%d.dot", name);
+            print_dd (gbm, bdd, 2,4);	/*Print the dd to standard output*/
+            write_dd(gbm, bdd, filename);  /*Write the resulting cascade dd to a file*/
 
+            printTree(tree);
+            printf("\n");
+            printf("\n");
+            name++;
+
+        } else {
+            printf("Tree failed.\n");
+            return 1;
+        }
     }
 
     freeList(head);
     freeTree(tree);
 
     Cudd_Quit(gbm);
-    fclose(filePointer);
+    fclose(fptr);
     i++;
     return 0;
 }
