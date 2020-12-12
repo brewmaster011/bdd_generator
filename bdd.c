@@ -47,12 +47,12 @@ int main (int argc, char *argv[])
     c = Cudd_Not(c);
     bdd = Cudd_bddNand(gbm, bdd, c);
     
+    // print_dd (gbm, bdd, 2,4);	/*Print the dd to standard output*/
     Cudd_Ref(bdd); /*Increases the reference count of a node*/
     bdd = Cudd_BddToAdd(gbm, bdd); /*Convert BDD to ADD for display purpose*/
-    // print_dd (gbm, bdd, 2,4);	/*Print the dd to standard output*/
     sprintf(filename, "./bdd/graph.dot"); /*Write .dot filename to a string*/
-    // write_dd(gbm, bdd, filename);  /*Write the resulting cascade dd to a file*/
     Cudd_Quit(gbm);
+    // write_dd(gbm, bdd, filename);  /*Write the resulting cascade dd to a file*/
 
     // Opening 'formulas.txt'
     // Putting the lines in lists

@@ -19,7 +19,16 @@ Tree newTreeNode(char data, Tree left, Tree right){
     return node;
 }
 
-int acceptChar(Tree *t, List *l){
+int acceptChar(List *l, char c){
+
+    if(*l != NULL && (*l)->data == c){
+        *l = (*l)->next;
+        return 1;
+    }
+    return 0;
+}
+
+int acceptIdentifier(Tree *t, List *l){
 
     if(*l != NULL && isalpha((*l)->data)){
         *t = newTreeNode((*l)->data, NULL, NULL);
@@ -29,14 +38,22 @@ int acceptChar(Tree *t, List *l){
     return 0;
 }
 
+int acceptAtom(Tree *t, List *l){
+
+    if(acceptIdentifier(t, l)) return 1;
+
+    if(acceptChar(l, '(') && createTree(t, l) && acceptChar(l, ')')) return 1;
+
+    return 0;
+}
+
 int checkNOT(Tree *t, List *l){
 
-    if(acceptChar(t, l)) return 1;
+    if(acceptAtom(t, l)) return 1;
 
-    if((*l)->data == '~'){
-        (*l) = (*l)->next;
+    if(acceptChar(l, '~')){
         Tree tL = NULL;
-        if(acceptChar(&tL, l)){
+        if(acceptAtom(&tL, l)){
             *t = newTreeNode('~', tL, NULL);
             return 1;
         }
@@ -48,10 +65,9 @@ int checkAND(Tree *t, List *l){
 
     if(!checkNOT(t, l)) return 0;
 
-    while(*l != NULL && (*l)->data == '&'){
+    while(acceptChar(l, '&')){
         Tree tL = *t;
         Tree tR = NULL;
-        *l = (*l)->next;
         if(!checkNOT(&tR, l)){
             freeTree(tR);
             return 0;
@@ -61,9 +77,25 @@ int checkAND(Tree *t, List *l){
     return 1;
 }
 
-int createTree(Tree *t, List *l){
+int checkOR(Tree *t, List *l){
 
     if(!checkAND(t, l)) return 0;
+
+    while(acceptChar(l, '|')){
+        Tree tL = *t;
+        Tree tR = NULL;
+        if(!checkAND(&tR, l)){
+            freeTree(tR);
+            return 0;
+        }
+        *t = newTreeNode('|', tL, tR);
+    }
+    return 1;
+}
+
+int createTree(Tree *t, List *l){
+
+    if(!checkOR(t, l)) return 0;
     return 1;
 }
 
