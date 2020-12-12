@@ -4,7 +4,7 @@ In the repository you will find the code in bdd.c and the folder bdd where you w
 
 The program right now created trees and bdds of all the formulas in the `formulas.txt` file. The formulas can be in the format of normal propositional formulas with operators `&`, `|`, `~` and brackets `(` `)`.
 
-In the folder bdd there is the graph of the last formula in the file.
+The resulting `.dot` files are in the folder "bdd". The program creates .dot files for all the formulas in the `formulas.txt` file. These can be visualized with the graphviz package.
 
 ## Compiling
 
@@ -16,8 +16,8 @@ You can then run the program with `./bdd.out`
 
 ## Opening the graph
 
-After running the bdd executable we will gave a graph.dot file inside the bdd folder.
-In order to vizualize the graph, with graphviz installed run:
+After running the bdd executable we will have binary decision diagrams of the formulas input into the program. 
+In order to vizualize the first graph, with graphviz installed run:
 
 ```bash
 dot -Tps bdd/graph.dot -o bdd/graph.ps
@@ -28,3 +28,10 @@ This will return in the same folder the graph in ps format (in order to maintain
 ```bash
 dot -Tjpg bdd/graph.dot -o bdd/graph.jpg
 ```
+
+In order to open the the rest of them repeat by changing the file name in the command above to:
+
+```bash
+dot -Tjpg bdd/[NAME].dot -o bdd/[NAME].jpg
+```
+Where `NAME` is the particular graph you want to see (ex: graph_3)
