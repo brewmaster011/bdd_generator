@@ -2,9 +2,9 @@
 
 In the repository you will find the code in bdd.c and the folder bdd where you will find the graphs created by the program.
 
-The code right now completes a propositional formula from the Feldman paper. Right now it is hard coded however i have a plan for the program to read the formulas and translate them automatically.
+The program right now created trees and bdds of all the formulas in the `formulas.txt` file. The formulas can be in the format of normal propositional formulas with operators `&`, `|`, `~` and brackets `(` `)`.
 
-The program can now put the formulas into trees. Only works with formulas which have exclusively the symbols `~` and `&`.
+In the folder bdd there is the graph of the last formula in the file.
 
 ## Compiling
 
