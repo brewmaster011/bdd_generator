@@ -10,16 +10,5 @@ get-dependencies:
 	cd cudd-3.0.0 && ./configure --enable-dddmp --enable-obj
 	cd cudd-3.0.0 && make
 
-show:
-	./bdd.out
-	dot -Tps bdd/graph.dot -o bdd/graph.ps
-	evince bdd/graph.ps
-
-test:
-	./bdd.out
-
-leak-test:
-	valgrind ./bdd.out
-
 clean:
 	rm bdd.out
