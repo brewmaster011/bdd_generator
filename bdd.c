@@ -13,10 +13,10 @@
 void print_dd (DdManager *gbm, DdNode	*dd, int n, int pr )
 {
     printf("DdManager nodes: %ld | ", Cudd_ReadNodeCount(gbm)); /*Reports the number of live nodes in BDDs and ADDs*/
-    printf("DdManager vars: %d | ", Cudd_ReadSize(gbm) ); /*Returns the number of BDD variables in existance*/
-    printf("DdManager reorderings: %d | ", Cudd_ReadReorderings(gbm) ); /*Returns the number of times reordering has occurred*/
-    printf("DdManager memory: %ld \n", Cudd_ReadMemoryInUse(gbm) ); /*Returns the memory in use by the manager measured in bytes*/
+    printf("DdManager vars: %d", Cudd_ReadSize(gbm) ); /*Returns the number of BDD variables in existance*/
+    printf("\n");
     Cudd_PrintDebug(gbm, dd, n, pr);	// Prints to the standard output a DD and its statistics: number of nodes, number of leaves, number of minterms.
+    // Prints more detailed information about dd into info.tx
     FILE *pointer ;
     pointer = fopen("info.txt", "a+");
     Cudd_PrintInfo(gbm, pointer);
@@ -104,8 +104,7 @@ int main (int argc, char *argv[])
         
         gbm = Cudd_Init(0,0,CUDD_UNIQUE_SLOTS,CUDD_CACHE_SLOTS,0); /* Initialize a new BDD manager. */
         head = readIntoList(buffer);
-        printList(head);
-        printf("\n");
+        // printList(head);
         i = createTree(&tree, &head);
 
         if(i){
@@ -116,9 +115,9 @@ int main (int argc, char *argv[])
             print_dd (gbm, bdd, 3, 4);	/*Print the dd to standard output*/
             write_dd(gbm, bdd, filename);  /*Write the resulting cascade dd to a file*/
 
-            printTree(tree);
-            printf("\n");
-            printf("\n");
+            // printTree(tree);
+            // printf("\n");
+            // printf("\n");
             name++;
 
         } else {
