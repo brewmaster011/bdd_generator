@@ -37,18 +37,15 @@ DdNode * create_bdd(DdManager *gbm, Tree *t, DdNode *a, DdNode *b, DdNode *c){
     if((*t)->left == NULL && (*t)->right == NULL){
         switch ((*t)->data){
         case 'a':
-            if(a == NULL) a = Cudd_bddNewVar(gbm);
-            return a;
+            return Cudd_bddIthVar(gbm, 0);
             break;
         
         case 'b':
-            if(b == NULL) b = Cudd_bddNewVar(gbm);
-            return b;
+            return Cudd_bddIthVar(gbm, 1);
             break;
 
         case 'c':
-            if(c == NULL) c = Cudd_bddNewVar(gbm);
-            return c;
+            return Cudd_bddIthVar(gbm, 2);
             break;
         
         default:
@@ -132,6 +129,5 @@ int main (int argc, char *argv[])
     freeTree(tree);
 
     fclose(fptr);
-    i++;
     return 0;
 }
