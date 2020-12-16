@@ -115,7 +115,7 @@ int main (int argc, char *argv[])
             Cudd_Ref(bdd);
             bdd = Cudd_BddToAdd(gbm, bdd);
             sprintf(filename, "./bdd/graph_%d.dot", name);
-            print_dd (gbm, bdd, 3, 4);	/*Print the dd to standard output*/
+            print_dd (gbm, bdd, 4, 4);	/*Print the dd to standard output*/
             write_dd(gbm, bdd, filename);  /*Write the resulting cascade dd to a file*/
 
             // printTree(tree);
