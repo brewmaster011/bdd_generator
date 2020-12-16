@@ -17,6 +17,11 @@ void print_dd (DdManager *gbm, DdNode	*dd, int n, int pr )
     printf("DdManager reorderings: %d | ", Cudd_ReadReorderings(gbm) ); /*Returns the number of times reordering has occurred*/
     printf("DdManager memory: %ld \n", Cudd_ReadMemoryInUse(gbm) ); /*Returns the memory in use by the manager measured in bytes*/
     Cudd_PrintDebug(gbm, dd, n, pr);	// Prints to the standard output a DD and its statistics: number of nodes, number of leaves, number of minterms.
+    FILE *pointer ;
+    pointer = fopen("info.txt", "a+");
+    Cudd_PrintInfo(gbm, pointer);
+    fprintf(pointer, "\n");
+    fclose(pointer);
 }
 
 void write_dd (DdManager *gbm, DdNode	*dd, char* filename)
@@ -108,7 +113,7 @@ int main (int argc, char *argv[])
             Cudd_Ref(bdd);
             bdd = Cudd_BddToAdd(gbm, bdd);
             sprintf(filename, "./bdd/graph_%d.dot", name);
-            print_dd (gbm, bdd, 2,4);	/*Print the dd to standard output*/
+            print_dd (gbm, bdd, 3, 4);	/*Print the dd to standard output*/
             write_dd(gbm, bdd, filename);  /*Write the resulting cascade dd to a file*/
 
             printTree(tree);
