@@ -52,6 +52,9 @@ DdNode * create_bdd(DdManager *gbm, Tree *t){
         case 'c':
             return Cudd_bddIthVar(gbm, 2);
             break;
+
+        case 'd':
+            return Cudd_bddIthVar(gbm, 3);
         
         default:
             break;
