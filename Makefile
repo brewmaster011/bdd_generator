@@ -11,4 +11,4 @@ get-dependencies:
 	cd cudd-3.0.0 && make
 
 clean:
-	rm bdd.out
+	rm bdd.out info.txt
