@@ -30,16 +30,34 @@ void write_dd (DdManager *gbm, DdNode	*dd, char* filename)
     fclose (outfile); // close the file */
 }
 
-DdNode * create_bdd(DdManager *gbm, Tree *t){
+DdNode * create_bdd(DdManager *gbm, Tree *t, DdNode *a, DdNode *b, DdNode *c){
 
     if(!*t) return NULL;
 
     if((*t)->left == NULL && (*t)->right == NULL){
-        return Cudd_bddNewVar(gbm);
+        switch ((*t)->data){
+        case 'a':
+            if(a == NULL) a = Cudd_bddNewVar(gbm);
+            return a;
+            break;
+        
+        case 'b':
+            if(b == NULL) b = Cudd_bddNewVar(gbm);
+            return b;
+            break;
+
+        case 'c':
+            if(c == NULL) c = Cudd_bddNewVar(gbm);
+            return c;
+            break;
+        
+        default:
+            break;
+        }
     }
 
-    DdNode *left = create_bdd(gbm, &((*t)->left));
-    DdNode *right = create_bdd(gbm, &((*t)->right));
+    DdNode *left = create_bdd(gbm, &((*t)->left), a, b, c);
+    DdNode *right = create_bdd(gbm, &((*t)->right), a, b, c);
 
     switch((*t)->data){
     case '&':
@@ -55,7 +73,6 @@ DdNode * create_bdd(DdManager *gbm, Tree *t){
         break;
     
     default:
-        printf("This should not happen\n");
         break;
     }
     return NULL;
@@ -82,6 +99,8 @@ int main (int argc, char *argv[])
 
     while(fgets(buffer, bufferLength, fptr)) {
         DdManager *gbm;	/* Global BDD manager. */
+        DdNode *a, *b, *c;
+        a = b = c = NULL;
         
         gbm = Cudd_Init(0,0,CUDD_UNIQUE_SLOTS,CUDD_CACHE_SLOTS,0); /* Initialize a new BDD manager. */
         head = readIntoList(buffer);
@@ -90,7 +109,7 @@ int main (int argc, char *argv[])
         i = createTree(&tree, &head);
 
         if(i){
-            DdNode *bdd = create_bdd(gbm, &tree);
+            DdNode *bdd = create_bdd(gbm, &tree, a, b, c);
             Cudd_Ref(bdd);
             bdd = Cudd_BddToAdd(gbm, bdd);
             sprintf(filename, "./bdd/graph_%d.dot", name);
