@@ -107,7 +107,11 @@ int main (int argc, char *argv[])
         
         gbm = Cudd_Init(0,0,CUDD_UNIQUE_SLOTS,CUDD_CACHE_SLOTS,0); /* Initialize a new BDD manager. */
         head = readIntoList(buffer);
-        // printList(head);
+
+        printf("Formula %d: ", name);
+        printList(head);
+        printf("\n");
+
         i = createTree(&tree, &head);
 
         if(i){
@@ -117,10 +121,6 @@ int main (int argc, char *argv[])
             sprintf(filename, "./bdd/graph_%d.dot", name);
             print_dd (gbm, bdd, 4, 4);	/*Print the dd to standard output*/
             write_dd(gbm, bdd, filename);  /*Write the resulting cascade dd to a file*/
-
-            // printTree(tree);
-            // printf("\n");
-            // printf("\n");
             name++;
 
         } else {
