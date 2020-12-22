@@ -10,7 +10,7 @@ The resulting `.dot` files are in the folder "bdd". The program creates .dot fil
 
 In order to compile the bdd.c file you will first need to install CUDD version 3.0.0 in this directory. This can be done by running `make get-dependencies`
 
-After downloading and installing you can run `make` in this folder and this will compile the executable bdd.out. **Make sure there is a directory called `bdd` in this folder or the program will not work**.
+After downloading and installing you can run `make` in this folder and this will compile the executable bdd.out and create the folder 'bdd' if it does not exist.
 
 You can then run the program with `./bdd.out`
 
