@@ -14,27 +14,17 @@ After downloading and installing you can run `make` in this folder and this will
 
 You can then run the program with `./bdd.out`
 
-## Opening the graph
+## Opening the graphs
 
 After running the bdd executable we will have binary decision diagrams of the formulas input into the program. 
-In order to vizualize the first graph, with graphviz installed run:
+In order to vizualize the graphs, with graphviz installed run:
 
 ```bash
-dot -Tps bdd/graph.dot -o bdd/graph.ps
+make all-jpg-files
 ```
 
-This will return in the same folder the graph in ps format (in order to maintain the quality of the graph). We can change the type of file outputed as desired. For example to convert to a jpeg:
+This will make a `.jpg` file for each of the `.dot` files in the bdd folder.
 
-```bash
-dot -Tjpg bdd/graph.dot -o bdd/graph.jpg
-```
-
-In order to open the the rest of them repeat by changing the file name in the command above to:
-
-```bash
-dot -Tjpg bdd/[NAME].dot -o bdd/[NAME].jpg
-```
-Where `NAME` is the particular graph you want to see (ex: graph_3)
 
 ## Program Output
 
