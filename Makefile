@@ -10,8 +10,15 @@ get-dependencies:
 	cd cudd-3.0.0 && ./configure --enable-dddmp --enable-obj
 	cd cudd-3.0.0 && make
 
+bdd/graph_%.jpg: bdd/graph_%.dot
+	dot -Tjpg $< -o $@
+
+all-jpg-files: $(addsuffix .jpg, $(addprefix bdd/graph_, $(shell seq 1 31)))
+
 directory:
 	mkdir -p bdd
 
 clean:
 	rm bdd.out info.txt
+
+.PHONY: clean all-jpg-files
