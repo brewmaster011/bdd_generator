@@ -38,4 +38,8 @@ Where `NAME` is the particular graph you want to see (ex: graph_3)
 
 ## Program Output
 
-When running the program you will see some output from each of the formulas input in the program. First you will se the number of the formula and the formula itself. Below that we have a summary of the DdManager with the number of nodes and the number of variables of the manager itself. After those we see some data for the bdd itself. First we see the number of nodes, leaves and minterms of the bdd. Then we have a list of all the nodes and their properties (ID, index, etc). Lastly we the disjoint sum of the profucts for the bdd.
+When running the program you will see some output from each of the formulas input in the program. First you will se the number of the formula and the formula itself. 
+
+Below that we have a summary of the DdManager with the number of nodes and the number of variables of the manager itself. 
+
+After those we see some data for the bdd itself. First we see the number of nodes, leaves and minterms of the bdd. Then we have a list of all the nodes and their properties (ID, index, etc). Lastly we the disjoint sum of the profucts for the bdd.
