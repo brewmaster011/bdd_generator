@@ -2,7 +2,7 @@
 
 In the repository you will find the code in bdd.c and the folder bdd where you will find the graphs created by the program.
 
-The program right now created trees and bdds of all the formulas in the `formulas.txt` file. The formulas can be in the format of normal propositional formulas with operators `&`, `|`, `~` and brackets `(` `)`.
+The program right now created trees and bdds of all the formulas in the `formulas.txt` file. The formulas can be in the format of normal propositional formulas with operators `&`, `|`, `~` and brackets `(` `)`. The program only allows for the atomic propositions 'a', 'b', 'c' and 'd'.
 
 The resulting `.dot` files are in the folder "bdd". The program creates .dot files for all the formulas in the `formulas.txt` file. These can be visualized with the graphviz package.
 
