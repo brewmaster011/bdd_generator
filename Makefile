@@ -13,7 +13,7 @@ get-dependencies:
 bdd/graph_%.jpg: bdd/graph_%.dot
 	dot -Tjpg $< -o $@
 
-all-jpg-files: $(addsuffix .jpg, $(addprefix bdd/graph_, $(shell seq 1 31)))
+all-jpg-files: $(addsuffix .jpg, $(addprefix bdd/graph_, $(shell seq 1 41)))
 
 directory:
 	mkdir -p bdd
